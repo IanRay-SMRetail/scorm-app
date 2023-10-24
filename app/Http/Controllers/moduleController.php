@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Completion;
 use App\Models\Modules;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class moduleController extends Controller
 {
@@ -28,7 +30,18 @@ class moduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new Completion;
+        $data->userID=Auth::user()->id;
+        $data->moduleID = $request->modid;
+        $data->score = $request->score;
+        $data->maxScore = $request->maxscore;
+
+        if($request->score >= $request->passcore){
+            $data->status=1;
+        }else{
+            $data->status=2;
+        }
+        $data->save();
     }
 
     /**
