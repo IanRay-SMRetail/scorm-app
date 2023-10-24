@@ -42,4 +42,6 @@ Route::prefix('module')->group(function () {
     
     Route::get('/leadership', [moduleController::class, 'showLeadership'])->name('leadership');
 });
+
+Route::resource('/mods', moduleController::class);
 require __DIR__.'/auth.php';

@@ -34,9 +34,10 @@ class moduleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Modules $modules)
+    public function show($id)
     {
-        //
+        $data = Modules::find($id);
+        return view('user.showmodule')->with('data',$data);
     }
 
     /**
