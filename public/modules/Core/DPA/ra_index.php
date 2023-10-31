@@ -1,9 +1,6 @@
 <?php 
-include('../../../../../retail/user/resources/session.php');
 include('story_html5.html');
 ?>
-
-
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
 	function db_StoreData(a){
@@ -21,22 +18,21 @@ include('story_html5.html');
 		
 	    var passscore = Math.round(a.maxPoints * 0.5);
 	    var passpercent = a.attributes.passPercent;
-	    var modid = <?php echo $_GET['id']; ?>;
-		var userID = <?php echo $_SESSION['UserID']; ?>;
+	    var modid = <?php echo $_GET['modid']; ?>;
 		
 		//first step get data //2nd saved to localstorage
-		let arr = [score, passscore, passpercent, modid, userID, dateTime];
+		let arr = [score, passscore, passpercent, modid, dateTime];
 		localStorage.setItem("arr_keys", JSON.stringify(arr));
 	
 	    console.log("Store to database:\n\nScore: " +score+ 
 		            "\nPassing Score: " + passscore + 
 					"\nTotal Score: " + a.maxPoints + 
-					"\nUserID: " + userID + 
+					//"\nUserID: " + userID + 
 					"\nPassing Percentage: " + passpercent +
 					"%\nModule ID: " + modid + "\n");
 	    $.ajax ({
 	        type: "POST",
-	        url: "../../../../../retail/admin/backend/storyline_datastore.php",
+	        url: "/mods_ra",
 	        data: { score: score, passscore: passscore, maxscore: a.maxPoints, passpercent: passpercent, modid: modid},
 	        beforeSend: function(){
 	        },

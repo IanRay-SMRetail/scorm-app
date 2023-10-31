@@ -78,7 +78,7 @@ class moduleController extends Controller
     }
 
     /**
-     * Shows all core modules
+     * Shows modules
      * thrown to users.module view
      */
     public function showCore(){
@@ -100,5 +100,24 @@ class moduleController extends Controller
         return view ('user.module',
                     ['data'=>$data,
                     'header'=>'Leadership Modules']);
+    }
+
+    /**
+     * Badges/Completion Route
+     * checks from Completion model
+     * thrown into a view
+     */
+
+    public function showBadges(){
+        $data = Completion::select('completions.*','onlinemodules.*')
+        ->leftJoin('onlinemodules', 'completions.moduleID', '=', 'onlinemodules.id')
+        ->where('completions.userID', Auth::user()->id)
+        ->where('completions.status', 2)
+        ->get();
+        return $data;
+    }
+
+    public function postRetailaff(Request $request){
+        //.. Retail aff completion here
     }
 }

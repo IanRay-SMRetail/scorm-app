@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\moduleController;
+use App\Http\Controllers\PHPMailerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,4 +45,12 @@ Route::prefix('module')->group(function () {
 });
 
 Route::resource('/mods', moduleController::class);
+Route::post('/mods_ra',[moduleController::class, "postRetailaff"]);
+
+Route::get("email", [PHPMailerController::class, "email"])->name("email");
+ 
+Route::post("send-email", [PHPMailerController::class, "composeEmail"])->name("send-email");
+
+Route::get('/myProfile', [moduleController::class, 'showBadges'])->name('badges');
+
 require __DIR__.'/auth.php';
